@@ -39,7 +39,7 @@ class Version
      * @param string $version
      * @return bool
      */
-    public function isGreaterThanOrEquals(string $version): bool
+    public function isGreaterOrEqualThan(string $version): bool
     {
         return $this->isGreaterThan($version) or $this->equals($version);
     }
