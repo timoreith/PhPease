@@ -57,7 +57,7 @@ class Version
      * @param string $version
      * @return bool
      */
-    public function isLessOrEqualThan(string $version)
+    public function isLessOrEqualThan(string $version): bool
     {
         return $this->isLessThan($version) or $this->equals($version);
     }
@@ -66,7 +66,7 @@ class Version
      * @param string $version
      * @return bool
      */
-    public function equals(string $version)
+    public function equals(string $version): bool
     {
         return version_compare($this->_version, $version) === 0;
     }
@@ -74,7 +74,7 @@ class Version
     /**
      * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->_version;
     }
@@ -82,7 +82,7 @@ class Version
     /**
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         if (!empty($this->_version)) {
             return true;
