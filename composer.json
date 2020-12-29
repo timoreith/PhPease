@@ -1,0 +1,13 @@
+{
+    "name": "timoreith/phpease",
+    "description": "PHP Helpers",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Timo",
+            "email": "mail@timoreith.de"
+        }
+    ],
+    "require": {}
+}
