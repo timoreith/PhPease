@@ -31,3 +31,19 @@ function is_true($var): bool
     }
     return false;
 }
+
+/**
+ * @param mixed $scalar
+ * @param array $valid
+ * @param null $default
+ * @param bool $strict
+ * @return mixed|null
+ */
+function filter_scalar($scalar, array $valid, $default = null, $strict = true)
+{
+    $result = $default;
+    if (in_array($scalar, $valid, $strict)) {
+        $result = $scalar;
+    }
+    return $result;
+}
