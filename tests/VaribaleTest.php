@@ -24,4 +24,25 @@ final class VaribaleTest extends TestCase
         $this->assertFalse(is_true(0));
         $this->assertFalse(is_true('0'));
     }
+
+    public function testIsStriclyFalse()
+    {
+        $this->assertFalse(is_stricly_false(0));
+        $this->assertFalse(is_stricly_false("0"));
+        $this->assertFalse(is_stricly_false(-1));
+        $this->assertFalse(is_stricly_false("bla"));
+        $this->assertFalse(is_stricly_false(" "));
+        $this->assertFalse(is_stricly_false("false"));
+        $this->assertTrue(is_stricly_false(false));
+    }
+
+    public function testIsFalse()
+    {
+        $this->assertTrue(is_false(0));
+        $this->assertTrue(is_false("0"));
+        $this->assertTrue(is_false("false"));
+        $this->assertFalse(is_false("fault"));
+        $this->assertFalse(is_false("true"));
+        $this->assertTrue(is_false(false));
+    }
 }
