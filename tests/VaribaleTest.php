@@ -2,6 +2,8 @@
 use PHPUnit\Framework\TestCase;
 use function PhPease\Variable\is_stricly_true;
 use function PhPease\Variable\is_true;
+use function PhPease\Variable\is_stricly_false;
+use function PhPease\Variable\is_false;
 
 final class VaribaleTest extends TestCase
 {
