@@ -33,6 +33,27 @@ function is_true($var): bool
 }
 
 /**
+ * @param $var
+ * @return bool
+ */
+function is_stricly_false($var): bool
+{
+    return $var === false;
+}
+
+/**
+ * @param $var
+ * @return bool
+ */
+function is_false($var): bool
+{
+    if (is_stricly_false($var) || empty($var) || $var === 'false') {
+        return true;
+    }
+    return false;
+}
+
+/**
  * @param mixed $scalar
  * @param array $valid
  * @param null $default
