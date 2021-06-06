@@ -21,7 +21,7 @@ class BufferedVar
 
     /**
      * @param $token string unique token
-     * @param $callable callable function or variable to be buffered
+     * @param $callable mixed function or variable to be buffered
      * @param string $ns buffer namespace
      * @return mixed
      */
