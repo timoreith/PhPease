@@ -73,3 +73,13 @@ function replace_umlauts($string) {
         'ó' => 'o',
     ]);
 }
+
+/**
+ * @param $string
+ * @param int $length
+ * @param string $ellipsis
+ * @return mixed|string
+ */
+function shorten($string, int $length = 25, string $ellipsis = '...') {
+    return strlen($string) > $length ? substr($string, 0, $length) . $ellipsis : $string;
+}
