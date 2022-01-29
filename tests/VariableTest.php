@@ -4,8 +4,9 @@ use function PhPease\Variable\is_stricly_true;
 use function PhPease\Variable\is_true;
 use function PhPease\Variable\is_stricly_false;
 use function PhPease\Variable\is_false;
+use function PhPease\Variable\var_to_array;
 
-final class VaribaleTest extends TestCase
+final class VariableTest extends TestCase
 {
     public function testIsStriclyTrue()
     {
@@ -46,5 +47,28 @@ final class VaribaleTest extends TestCase
         $this->assertFalse(is_false("fault"));
         $this->assertFalse(is_false("true"));
         $this->assertTrue(is_false(false));
+    }
+
+    public function testCommaSeparatedStringToArray()
+    {
+        $var = var_to_array('1,2,3', 'intval');
+        $this->assertIsArray($var);
+        $this->assertCount(3, $var);
+        $this->assertIsInt($var[0]);
+    }
+
+    public function testEmptyStringToArray()
+    {
+        $var = var_to_array('');
+        $this->assertIsArray($var);
+        $this->assertCount(0, $var);
+    }
+
+    public function testStringToArray()
+    {
+        $var = var_to_array('dummy');
+        $this->assertIsArray($var);
+        $this->assertCount(1, $var);
+        $this->assertEquals('dummy', $var[0]);
     }
 }

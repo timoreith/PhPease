@@ -83,3 +83,12 @@ function replace_umlauts($string) {
 function shorten($string, int $length = 25, string $ellipsis = '...') {
     return strlen($string) > $length ? substr($string, 0, $length) . $ellipsis : $string;
 }
+
+/**
+ * @param $haystack
+ * @param $needle
+ * @return bool
+ */
+function str_ends_with($haystack, $needle) {
+    return $needle !== '' ? substr($haystack, -strlen($needle)) === $needle : true;
+}

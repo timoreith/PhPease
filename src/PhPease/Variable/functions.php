@@ -68,3 +68,30 @@ function filter_scalar($scalar, array $valid, $default = null, $strict = true)
     }
     return $result;
 }
+
+/**
+ * Ensures that the return value is an array. Converts variables that are not arrays and not empty into arrays.
+ * A callback can be specified to be applied to the elements of the array.
+ *
+ * @param $var
+ * @param null|callable $callback
+ * @return array
+ */
+function var_to_array($var, $callback = null): array
+{
+    if (!is_array($var)) {
+        if (empty($var)) {
+            $var = array();
+        } else {
+            if (is_string($var) && strpos($var, ',') !== false) {
+                $var = explode(',', $var);
+            } else {
+                $var = array($var);
+            }
+        }
+    }
+    if (is_callable($callback)) {
+        $var = array_map($callback, $var);
+    }
+    return $var;
+}

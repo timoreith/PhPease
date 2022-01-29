@@ -17,7 +17,7 @@
             "src/"
         ],
         "files": [
-            "src/PhPease/Variable/functions_include.php"
+            "src/PhPease/functions_include.php"
         ]
     },
     "require-dev": {
