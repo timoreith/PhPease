@@ -84,7 +84,7 @@ function var_to_array($var, $callback = null): array
             $var = array();
         } else {
             if (is_string($var) && strpos($var, ',') !== false) {
-                $var = explode(',', $var);
+                $var = array_map('trim', explode(',', $var));
             } else {
                 $var = array($var);
             }

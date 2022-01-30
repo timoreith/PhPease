@@ -57,6 +57,14 @@ final class VariableTest extends TestCase
         $this->assertIsInt($var[0]);
     }
 
+    public function testCommaSeparatedStringToArrayTrim()
+    {
+        $var = var_to_array('1, 2, 3');
+        $this->assertIsArray($var);
+        $this->assertCount(3, $var);
+        $this->assertEquals('2', $var[1], 'value did not get trimmed');
+    }
+
     public function testEmptyStringToArray()
     {
         $var = var_to_array('');
