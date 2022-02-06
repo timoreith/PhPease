@@ -85,10 +85,38 @@ function shorten($string, int $length = 25, string $ellipsis = '...') {
 }
 
 /**
- * @param $haystack
- * @param $needle
+ * @param string $haystack
+ * @param string $needle
  * @return bool
  */
-function str_ends_with($haystack, $needle) {
-    return $needle !== '' ? substr($haystack, -strlen($needle)) === $needle : true;
+function str_ends_with(string $haystack, string $needle): bool {
+    if (\PHP_VERSION_ID < 80000) {
+        return $needle !== '' ? substr($haystack, -strlen($needle)) === $needle : true;
+    }
+    return \str_ends_with($haystack, $needle);
+}
+
+/**
+ * @param string $haystack
+ * @param string $needle
+ * @return bool
+ */
+function str_starts_with(string $haystack, string $needle): bool {
+    if (\PHP_VERSION_ID < 80000) {
+        $length = strlen( $needle );
+        return substr( $haystack, 0, $length ) === $needle;
+    }
+    return \str_starts_with($haystack, $needle);
+}
+
+/**
+ * @param string $haystack
+ * @param string $needle
+ * @return bool
+ */
+function str_contains(string $haystack, string $needle): bool {
+    if (\PHP_VERSION_ID < 80000) {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+    return \str_contains($haystack, $needle);
 }
