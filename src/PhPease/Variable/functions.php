@@ -85,6 +85,9 @@ function var_to_array($var, $callback = null): array
         } else {
             if (is_string($var) && strpos($var, ',') !== false) {
                 $var = array_map('trim', explode(',', $var));
+                $var = array_filter($var, function ($v) {
+                    return $v !== '';
+                });
             } else {
                 $var = array($var);
             }

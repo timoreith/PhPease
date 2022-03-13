@@ -63,6 +63,12 @@ final class VariableTest extends TestCase
         $this->assertIsArray($var);
         $this->assertCount(3, $var);
         $this->assertEquals('2', $var[1], 'value did not get trimmed');
+
+        // Empty characters at the end of a comma-separated list should be filtered out
+        $var2 = var_to_array('1, 2,');
+        $this->assertIsArray($var2);
+        $this->assertCount(2, $var2);
+        $this->assertEquals('2', $var2[1], 'value did not get trimmed');
     }
 
     public function testEmptyStringToArray()
