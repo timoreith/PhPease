@@ -5,6 +5,7 @@ use function PhPease\Variable\is_true;
 use function PhPease\Variable\is_stricly_false;
 use function PhPease\Variable\is_false;
 use function PhPease\Variable\var_to_array;
+use function PhPease\Variable\array_keys_exists;
 
 final class VariableTest extends TestCase
 {
@@ -84,5 +85,22 @@ final class VariableTest extends TestCase
         $this->assertIsArray($var);
         $this->assertCount(1, $var);
         $this->assertEquals('dummy', $var[0]);
+    }
+
+    public function testArrayKeysExists()
+    {
+        $required = ['item_number', 'url', 'title'];
+
+        $data = [
+            'item_number' => 123,
+            'url' => 'http://test.com',
+            'test' => 'dummy'
+        ];
+
+        $this->assertFalse(array_keys_exists($required, $data));
+
+        $data['title'] = 'item title';
+
+        $this->assertTrue(array_keys_exists($required, $data));
     }
 }
