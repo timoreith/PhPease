@@ -77,6 +77,21 @@ final class VariableTest extends TestCase
         $var = var_to_array('');
         $this->assertIsArray($var);
         $this->assertCount(0, $var);
+        $this->assertEmpty($var, 'var is not empty');
+    }
+
+    public function testZeroToArray()
+    {
+        $var = var_to_array('0');
+        $this->assertIsArray($var);
+        $this->assertCount(0, $var);
+        $this->assertEmpty($var, 'var is not empty');
+
+        $var = var_to_array('0', null, ['0']);
+        $this->assertIsArray($var);
+        $this->assertCount(1, $var);
+        $this->assertIsString($var[0]);
+        $this->assertEquals('0', $var[0]);
     }
 
     public function testStringToArray()

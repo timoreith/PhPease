@@ -77,11 +77,11 @@ function filter_scalar($scalar, array $valid, $default = null, $strict = true)
  * @param null|callable $callback
  * @return array
  */
-function var_to_array($var, $callback = null): array
+function var_to_array($var, $callback = null, array $emptyDefault = []): array
 {
     if (!is_array($var)) {
         if (empty($var)) {
-            $var = array();
+            $var = $emptyDefault;
         } else {
             if (is_string($var) && strpos($var, ',') !== false) {
                 $var = array_map('trim', explode(',', $var));
@@ -109,4 +109,17 @@ function var_to_array($var, $callback = null): array
 function array_keys_exists(array $keys, array $arr): bool
 {
     return !array_diff_key(array_flip($keys), $arr);
+}
+
+/**
+ * @param $var
+ * @param int $decimals
+ * @return float
+ */
+function var_to_float($var, int $decimals = 2): float
+{
+    $var = str_replace(',', '.', $var);
+    $var = preg_replace('/[^0-9\.]/', '', $var);
+    $var = number_format((float)$var, $decimals, '.', null);
+    return floatval($var);
 }
