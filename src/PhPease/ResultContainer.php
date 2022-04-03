@@ -50,10 +50,12 @@ class ResultContainer
 
     /**
      * @param boolean $success
+     * @return ResultContainer
      */
-    public function setSuccess(bool $success)
+    public function setSuccess(bool $success): ResultContainer
     {
         $this->_success = $success;
+        return $this;
     }
 
     /**
@@ -66,10 +68,12 @@ class ResultContainer
 
     /**
      * @param string $message
+     * @return ResultContainer
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): ResultContainer
     {
         $this->_message = $message;
+        return $this;
     }
 
     /**
