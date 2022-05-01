@@ -74,7 +74,7 @@ function filter_scalar($scalar, array $valid, $default = null, $strict = true)
  * A callback can be specified to be applied to the elements of the array.
  *
  * @param $var
- * @param null|callable $callback
+ * @param null|array|callable $callback
  * @return array
  */
 function var_to_array($var, $callback = null, array $emptyDefault = []): array
@@ -95,6 +95,12 @@ function var_to_array($var, $callback = null, array $emptyDefault = []): array
     }
     if (is_callable($callback)) {
         $var = array_map($callback, $var);
+    } elseif (is_array($callback)) {
+        foreach ($callback as $cb) {
+            if (is_callable($cb)) {
+                $var = array_map($cb, $var);
+            }
+        }
     }
     return $var;
 }

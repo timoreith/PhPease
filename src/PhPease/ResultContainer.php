@@ -59,6 +59,14 @@ class ResultContainer
     }
 
     /**
+     * @return bool
+     */
+    public function hasMessage(): bool
+    {
+        return !empty($this->_message);
+    }
+
+    /**
      * @return null|string
      */
     public function getMessage(): string

@@ -102,6 +102,22 @@ final class VariableTest extends TestCase
         $this->assertEquals('dummy', $var[0]);
     }
 
+    public function testToArrayWithMultiCallback()
+    {
+        $var = '1, 2, 3 , 4 ';
+
+        $var = var_to_array($var, ['intval', function ($v) {
+            return $v*2;
+        }]);
+
+        $this->assertIsArray($var);
+        $this->assertCount(4, $var);
+        $this->assertEquals(2, $var[0]);
+        $this->assertEquals(4, $var[1]);
+        $this->assertEquals(6, $var[2]);
+        $this->assertEquals(8, $var[3]);
+    }
+
     public function testArrayKeysExists()
     {
         $required = ['item_number', 'url', 'title'];
