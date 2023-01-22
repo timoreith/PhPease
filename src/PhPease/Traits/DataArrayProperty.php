@@ -78,7 +78,7 @@ trait DataArrayProperty
      */
     public function getData($key)
     {
-        return $this->initData()->offsetGet($key);
+        return $this->hasData($key) ? $this->initData()->offsetGet($key) : null;
     }
 
     /**
