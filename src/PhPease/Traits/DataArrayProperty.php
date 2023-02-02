@@ -67,9 +67,13 @@ trait DataArrayProperty
      * @param $key
      * @return bool
      */
-    public function hasData($key)
+    public function hasData($key = null)
     {
-        return $this->initData()->offsetExists($key);
+        if ($key !== null) {
+            return $this->initData()->offsetExists($key);
+        } else {
+            return $this->countData() > 0;
+        }
     }
 
     /**
@@ -90,10 +94,27 @@ trait DataArrayProperty
     }
 
     /**
+     * @return string
+     */
+    public function getAllDataJsonEncoded(): string
+    {
+        return json_encode($this->getAllData());
+    }
+
+    /**
      * @return int
      */
     public function countData()
     {
         return $this->initData()->count();
+    }
+
+    /**
+     * @param $value
+     * @return void
+     */
+    public function addData($value)
+    {
+        $this->setData(null, $value);
     }
 }
