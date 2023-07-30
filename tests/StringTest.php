@@ -3,6 +3,7 @@ use PHPUnit\Framework\TestCase;
 use function PhPease\String\str_contains;
 use function PhPease\String\str_ends_with;
 use function PhPease\String\str_starts_with;
+use function PhPease\String\to_camel_case;
 use function PhPease\Variable\is_stricly_true;
 use function PhPease\Variable\is_true;
 use function PhPease\Variable\is_stricly_false;
@@ -40,5 +41,13 @@ final class StringTest extends TestCase
         $this->assertFalse(str_contains('abcdefg', ' '));
         $this->assertTrue(str_contains('abcdefg', ''));
         $this->assertTrue(str_contains('abcd123efg', '2'));
+    }
+
+    public function testStrToCamelCase()
+    {
+        $this->assertEquals('ThisIsAString', to_camel_case('this-is-a_ string'));
+        $this->assertEquals('ThisClassName', to_camel_case('this-class-name'));
+        $this->assertEquals('ThatClassName', to_camel_case('That-Class_Name'));
+        $this->assertEquals('aMethodName', lcfirst( to_camel_case('a method name') ));
     }
 }

@@ -120,3 +120,12 @@ function str_contains(string $haystack, string $needle): bool {
     }
     return \str_contains($haystack, $needle);
 }
+
+/**
+ * @param string $string
+ * @return array|string|string[]
+ */
+function to_camel_case(string $string): string
+{
+    return str_replace(['-', '_', ' '], '', ucwords($string, '-_ '));
+}
