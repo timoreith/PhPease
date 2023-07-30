@@ -1,4 +1,6 @@
 <?php declare(strict_types=1);
+
+use PhPease\Task\AbstractTask;
 use PHPUnit\Framework\TestCase;
 use function PhPease\Variable\var_to_array;
 
@@ -81,7 +83,7 @@ final class TaskManagerTest extends TestCase
 
 }
 
-class TaskOne extends \PhPease\Task\AbstractTask {
+class TaskOne extends AbstractTask {
     public function run()
     {
         $this->result->setData('html', '<p>Test One</p>');
@@ -91,7 +93,7 @@ class TaskOne extends \PhPease\Task\AbstractTask {
         $this->result->setData('list', $list);
     }
 }
-class TaskTwo extends \PhPease\Task\AbstractTask {
+class TaskTwo extends AbstractTask {
     public function run()
     {
         $this->result->setData('html', '<p>Test Two</p>');
@@ -102,7 +104,7 @@ class TaskTwo extends \PhPease\Task\AbstractTask {
     }
 }
 
-class TaskThrowsException extends \PhPease\Task\AbstractTask {
+class TaskThrowsException extends AbstractTask {
     public function run()
     {
         throw new \Exception('something went wrong in TaskThrowsException');
