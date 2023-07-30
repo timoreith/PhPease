@@ -79,8 +79,10 @@ final class TaskManagerTest extends TestCase
         $this->assertTrue($tm->getResult()->hasData('tasks performed'));
         $this->assertEquals(2, $tm->getTasksPerformed());
     }
+}
 
-
+if (!class_exists('PhPease\Task\AbstractTask')) {
+    require_once __DIR__ . '/../src/PhPease/Task/AbstractTask.php';
 }
 
 class TaskOne extends AbstractTask {
