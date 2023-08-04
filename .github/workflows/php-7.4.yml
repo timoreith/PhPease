@@ -36,4 +36,4 @@ jobs:
     - name: Run test suite
       run: composer run-script test
       with:
-        php_version: "7.4"
+        php-version: "7.4"
