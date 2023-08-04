@@ -1,4 +1,4 @@
-name: CI PHP7.4
+name: CI with PHP 7.4
 
 on:
   push:

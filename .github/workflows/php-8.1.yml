@@ -1,5 +1,4 @@
-name: Continuous Integration
-
+name: CI with PHP 8.1
 on:
   push:
     branches: [ main ]
