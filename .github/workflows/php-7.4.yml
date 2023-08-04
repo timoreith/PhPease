@@ -19,6 +19,9 @@ jobs:
       with:
         php-version: 7.4
 
+    - name: Check PHP Version
+      run: php -v
+
     - name: Validate composer.json and composer.lock
       run: composer validate
 
