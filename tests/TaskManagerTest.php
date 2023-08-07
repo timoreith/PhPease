@@ -79,6 +79,21 @@ final class TaskManagerTest extends TestCase
         $this->assertTrue($tm->getResult()->hasData('tasks performed'));
         $this->assertEquals(2, $tm->getTasksPerformed());
     }
+
+    public function testSetTasks()
+    {
+        $tm = new \PhPease\Task\Manager();
+
+        $tm->setTasks([
+            new TaskOne(),
+            new TaskTwo(),
+            new stdClass(),
+            'no valid task'
+        ]);
+
+        $this->assertTrue($tm->hasTasks());
+        $this->assertCount(2, $tm->getTasks() );
+    }
 }
 
 if (!class_exists('PhPease\Task\AbstractTask')) {

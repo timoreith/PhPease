@@ -82,6 +82,17 @@ class Manager
     }
 
     /**
+     * @param array $tasks
+     * @return void
+     */
+    public function setTasks(array $tasks)
+    {
+        $this->tasks = array_filter($tasks, function ($task) {
+            return $task instanceof AbstractTask;
+        });
+    }
+
+    /**
      * @param $task
      * @return void
      */
