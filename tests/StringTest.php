@@ -2,6 +2,7 @@
 use PHPUnit\Framework\TestCase;
 use function PhPease\String\str_contains;
 use function PhPease\String\str_ends_with;
+use function PhPease\String\str_replace_all_except_numbers;
 use function PhPease\String\str_starts_with;
 use function PhPease\String\to_camel_case;
 use function PhPease\Variable\is_stricly_true;
@@ -49,5 +50,13 @@ final class StringTest extends TestCase
         $this->assertEquals('ThisClassName', to_camel_case('this-class-name'));
         $this->assertEquals('ThatClassName', to_camel_case('That-Class_Name'));
         $this->assertEquals('aMethodName', lcfirst( to_camel_case('a method name') ));
+    }
+
+    public function testStrReplaceAllExceptNumbers()
+    {
+        $this->assertEquals('20_08_2012_20_13_33', str_replace_all_except_numbers('20.08.2012 20:13:33'));
+        $this->assertEquals('20_08_2012_20_13_33', str_replace_all_except_numbers('20.08.2012 - 20:13:33'));
+        $this->assertEquals('20-08-2012-20-13-33', str_replace_all_except_numbers('20.08.2012 - 20:13:33', '-'));
+        $this->assertEquals('20-08-2012---20-13-33', str_replace_all_except_numbers('20.08.2012 - 20:13:33', '-', false));
     }
 }
