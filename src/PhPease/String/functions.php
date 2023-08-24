@@ -125,7 +125,35 @@ function str_contains(string $haystack, string $needle): bool {
  * @param string $string
  * @return array|string|string[]
  */
-function to_camel_case(string $string): string
-{
+function to_camel_case(string $string): string {
     return str_replace(['-', '_', ' '], '', ucwords($string, '-_ '));
+}
+
+/**
+ * @param string $str
+ * @param $what
+ * @param string $with
+ * @param bool $combineRepeating
+ * @return string
+ */
+function str_replace_all_except(string $str, $what, string $with = '_', bool $combineRepeating = true): string {
+    preg_match_all($what, $str, $matches);
+    if (!empty($matches[0])) {
+        $str = str_replace(array_unique($matches[0]), $with, $str);
+
+        if ($combineRepeating) {
+            $str = preg_replace('~([' . $with . '])\1\1+~', '\1', $str);
+        }
+    }
+    return (string)$str;
+}
+
+/**
+ * @param string $str
+ * @param string $with
+ * @param bool $combineRepeating
+ * @return string
+ */
+function str_replace_all_except_numbers(string $str, string $with = '_', bool $combineRepeating = true) {
+    return str_replace_all_except($str, '/[^Z0-9]/', $with, $combineRepeating);
 }
