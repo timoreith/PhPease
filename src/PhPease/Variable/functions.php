@@ -129,3 +129,21 @@ function var_to_float($var, int $decimals = 2): float
     $var = number_format((float)$var, $decimals, '.', null);
     return floatval($var);
 }
+
+/**
+ * get size of array in bytes
+ * @param array $array
+ * @return int
+ */
+function get_array_size(array $array): int
+{
+    $serializedArray = serialize($array);
+
+    if (function_exists('mb_strlen')) {
+        $sizeInBytes = mb_strlen($serializedArray, '8bit');
+    } else {
+        $sizeInBytes = strlen($serializedArray);
+    }
+
+    return $sizeInBytes;
+}

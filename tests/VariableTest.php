@@ -134,4 +134,13 @@ final class VariableTest extends TestCase
 
         $this->assertTrue(array_keys_exists($required, $data));
     }
+
+    public function testGetArraySize()
+    {
+        $a1 = [
+            'k1' => '123'
+        ];
+
+        var_dump( \PhPease\Variable\get_array_size($a1));
+    }
 }

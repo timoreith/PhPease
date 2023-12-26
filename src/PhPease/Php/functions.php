@@ -84,14 +84,10 @@ function get_memory_limit() {
 }
 
 /**
- * get remaining memory in kilobytes
+ * get remaining memory inbytes
  * @return float|int
  */
 function get_remaining_memory()
 {
-    $current_memory_usage = memory_get_usage(); // in bytes
-    $remaining_memory = get_memory_limit() * 1024 - $current_memory_usage; // in bytes
-
-    // convert remaining memory from bytes to kilobytes
-    return $remaining_memory / 1024;
+    return get_memory_limit() * 1024 - memory_get_usage();
 }
