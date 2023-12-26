@@ -45,6 +45,11 @@ function get_file_upload_max_size_human_readable(): string
     return bytes_to_human_readable(get_file_upload_max_size());
 }
 
+/**
+ * helper function to work with file sizes in ini file format
+ * @param $size
+ * @return float
+ */
 function parse_ini_filesize($size): float
 {
     // Remove the non-unit characters from the size.
@@ -58,4 +63,35 @@ function parse_ini_filesize($size): float
     } else {
         return round($size);
     }
+}
+
+/**
+ * get memory limit in kilobytes
+ * @return false|float|int|string
+ */
+function get_memory_limit() {
+    $memory_limit = ini_get('memory_limit');
+    if (preg_match('/^(\d+)(.)$/', $memory_limit, $matches)) {
+        if ($matches[2] == 'M') {
+            $memory_limit = $matches[1] * 1024; // nnnM -> nnn MB
+        } else if ($matches[2] == 'K') {
+            $memory_limit = $matches[1]; // nnnK -> nnn KB
+        } else if ($matches[2] == 'G') {
+            $memory_limit = $matches[1] * 1024 * 1024; // nnnG -> nnn GB
+        }
+    }
+    return $memory_limit;
+}
+
+/**
+ * get remaining memory in kilobytes
+ * @return float|int
+ */
+function get_remaining_memory()
+{
+    $current_memory_usage = memory_get_usage(); // in bytes
+    $remaining_memory = get_memory_limit() * 1024 - $current_memory_usage; // in bytes
+
+    // convert remaining memory from bytes to kilobytes
+    return $remaining_memory / 1024;
 }

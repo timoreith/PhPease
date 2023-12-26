@@ -9,7 +9,6 @@
  */
 
 // for manual functions include
-require_once __DIR__ . '/Conf/functions.php';
 require_once __DIR__ . '/Convert/functions.php';
 require_once __DIR__ . '/Request/functions.php';
 require_once __DIR__ . '/String/functions.php';
