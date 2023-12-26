@@ -27,3 +27,13 @@ function bytes_to_human_readable($bytes, int $decimals = 2): string
     $factor = floor((strlen($bytes) - 1) / 3);
     return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
 }
+
+/**
+ * @param $kilobytes
+ * @param int $decimals
+ * @return string
+ */
+function kilobytes_to_human_readable($kilobytes, int $decimals = 2): string
+{
+    return bytes_to_human_readable($kilobytes*1024, $decimals);
+}
