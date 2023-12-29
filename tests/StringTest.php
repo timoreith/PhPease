@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
+use function PhPease\String\random_string;
 use function PhPease\String\str_contains;
 use function PhPease\String\str_ends_with;
 use function PhPease\String\str_replace_all_except_numbers;
@@ -58,5 +59,27 @@ final class StringTest extends TestCase
         $this->assertEquals('20_08_2012_20_13_33', str_replace_all_except_numbers('20.08.2012 - 20:13:33'));
         $this->assertEquals('20-08-2012-20-13-33', str_replace_all_except_numbers('20.08.2012 - 20:13:33', '-'));
         $this->assertEquals('20-08-2012---20-13-33', str_replace_all_except_numbers('20.08.2012 - 20:13:33', '-', false));
+    }
+
+    public function testRandomString()
+    {
+        $this->assertEquals(10, strlen(random_string()));
+        $this->assertEquals(32, strlen(random_string(32)));
+        $this->assertEquals(16, strlen(random_string(16)));
+        $this->assertEquals(8, strlen(random_string(8)));
+        $this->assertEquals(4, strlen(random_string(4)));
+        $this->assertEquals(2, strlen(random_string(2)));
+        $this->assertEquals(1, strlen(random_string(1)));
+        $this->assertEquals(0, strlen(random_string(0)));
+        $this->assertEquals('', random_string(0));
+        $this->assertEquals(0, strlen(random_string(-1)));
+        $this->assertEquals(255, strlen(random_string(PHP_INT_MAX)));
+        $this->assertEquals(0, strlen(random_string(PHP_INT_MIN)));
+
+        $this->expectException(\TypeError::class);
+        $this->assertEquals(255, strlen(random_string(PHP_INT_MAX + 1)));
+
+        $this->expectException(\TypeError::class);
+        $this->assertEquals(0, strlen(random_string(PHP_INT_MIN - 1)));
     }
 }

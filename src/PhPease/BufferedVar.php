@@ -17,7 +17,7 @@ class BufferedVar
     /**
      * @var array
      */
-    protected static $_buffer = [];
+    protected static array $_buffer = [];
 
     /**
      * @param $token string unique token
@@ -25,7 +25,7 @@ class BufferedVar
      * @param string $ns buffer namespace
      * @return mixed
      */
-    public static function get($token, $callable, $ns = 'default')
+    public static function get(string $token, $callable, string $ns = 'default')
     {
         if (!self::exists($token, $ns)) {
             if (is_callable($callable)) {
@@ -43,13 +43,12 @@ class BufferedVar
      * @param string $ns
      * @return bool
      */
-    public static function exists($token, $ns = 'default')
+    public static function exists($token, string $ns = 'default'): bool
     {
         if (!isset(self::$_buffer[$ns])) {
             self::$_buffer[$ns] = [];
         }
-        $result = isset(self::$_buffer[$ns]) && array_key_exists($token, self::$_buffer[$ns]);
-        return $result;
+        return isset(self::$_buffer[$ns]) && array_key_exists($token, self::$_buffer[$ns]);
     }
 }
 
