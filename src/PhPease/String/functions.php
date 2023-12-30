@@ -185,3 +185,30 @@ function random_string(int $length = 10, string $token = null): string
     }
     return $string;
 }
+
+/**
+ * @param $str
+ * @return bool
+ */
+function is_utf8_encoded($str): bool
+{
+    if (function_exists('mb_check_encoding')) {
+        return mb_check_encoding($str, 'UTF-8');
+    }
+    return preg_match('//u', $str) !== false;
+}
+
+/**
+ * @param $str
+ * @return mixed|string
+ */
+function utf8_safe_encode($str) {
+    if (!is_utf8_encoded($str)) {
+        if (function_exists('mb_convert_encoding')) {
+            $str = mb_convert_encoding($str, 'UTF-8', 'auto');
+        } elseif (function_exists('utf8_encode')) {
+            $str = utf8_encode($str);
+        }
+    }
+    return $str;
+}

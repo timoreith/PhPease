@@ -1,11 +1,13 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
+use function PhPease\String\is_utf8_encoded;
 use function PhPease\String\random_string;
 use function PhPease\String\str_contains;
 use function PhPease\String\str_ends_with;
 use function PhPease\String\str_replace_all_except_numbers;
 use function PhPease\String\str_starts_with;
 use function PhPease\String\to_camel_case;
+use function PhPease\String\utf8_safe_encode;
 use function PhPease\Variable\is_stricly_true;
 use function PhPease\Variable\is_true;
 use function PhPease\Variable\is_stricly_false;
@@ -81,5 +83,24 @@ final class StringTest extends TestCase
 
         $this->expectException(\TypeError::class);
         $this->assertEquals(0, strlen(random_string(PHP_INT_MIN - 1)));
+    }
+
+    public function testStrIsUtf8EncodedWithValidUtf8String()
+    {
+        $string = "Fédération Camerounaise de Football";
+        $encodedString = utf8_safe_encode($string);
+
+        $this->assertTrue(is_utf8_encoded($encodedString));
+    }
+
+    public function testStrIsUtf8EncodedWithInvalidUtf8String()
+    {
+        $string = "\xC3\x28";
+
+        $this->assertFalse(is_utf8_encoded($string));
+
+        $encodedString = utf8_safe_encode($string);
+
+        $this->assertTrue(is_utf8_encoded($encodedString));
     }
 }
