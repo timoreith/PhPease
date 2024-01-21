@@ -54,6 +54,19 @@ class File extends \SplFileObject
     /**
      * @return bool
      */
+    public function isBz2File(): bool
+    {
+        if ($this->getMimetype() === 'application/x-bzip2' ||
+            strtolower($this->getExtension()) === 'bz2') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
     public function isCsvFile(): bool
     {
         if ($this->getMimetype() === 'text/csv' ||
@@ -95,8 +108,13 @@ class File extends \SplFileObject
     /**
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         return unlink($this->getPathname());
+    }
+
+    public function move($to): bool
+    {
+        return rename($this->getPathname(), $to);
     }
 }
