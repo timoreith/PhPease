@@ -91,3 +91,11 @@ function get_remaining_memory()
 {
     return get_memory_limit() * 1024 - memory_get_usage();
 }
+
+/**
+ * @param int $percent
+ */
+function is_remaining_memory_less_than(int $percent): bool
+{
+    return 100 / (get_memory_limit() * 1024) * get_remaining_memory() < $percent;
+}
