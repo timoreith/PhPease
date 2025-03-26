@@ -124,10 +124,10 @@ function array_keys_exists(array $keys, array $arr): bool
  */
 function var_to_float($var, int $decimals = 2): float
 {
+    $var = (string)$var;
     $var = str_replace(',', '.', $var);
     $var = preg_replace('/[^0-9\.]/', '', $var);
-    $var = number_format((float)$var, $decimals, '.', null);
-    return floatval($var);
+    return round((float)$var, $decimals);
 }
 
 /**

@@ -168,7 +168,7 @@ function str_replace_all_except_numbers(string $str, string $with = '_', bool $c
  * @param string|null $token If specified, the identical string is returned within the same PHP process using PhPease\BufferedVar
  * @return string
  */
-function random_string(int $length = 10, string $token = null): string
+function random_string(int $length = 10, ?string $token = null): string
 {
     if (!empty($token)) {
         return BufferedVar::get($token, random_string($length));

@@ -6,6 +6,7 @@ use function PhPease\Variable\is_stricly_false;
 use function PhPease\Variable\is_false;
 use function PhPease\Variable\var_to_array;
 use function PhPease\Variable\array_keys_exists;
+use function PhPease\Variable\var_to_float;
 
 final class VariableTest extends TestCase
 {
@@ -135,12 +136,31 @@ final class VariableTest extends TestCase
         $this->assertTrue(array_keys_exists($required, $data));
     }
 
+    public function testVarToFloat()
+    {
+        $this->assertEquals(12.00, var_to_float('12'));
+        $this->assertEquals(123.00, var_to_float('123'));
+        $this->assertEquals(1234.00, var_to_float('1234'));
+        $this->assertEquals(12345.00, var_to_float('12345'));
+
+        $this->assertEquals(123.00, var_to_float(123));
+        $this->assertEquals(1234.00, var_to_float(1234));
+        $this->assertEquals(12345.00, var_to_float(12345));
+    }
+
     public function testGetArraySize()
     {
         $a1 = [
             'k1' => '123'
         ];
 
-        var_dump( \PhPease\Variable\get_array_size($a1));
+        $this->assertEquals(25, \PhPease\Variable\get_array_size($a1));
+
+        $a2 = [
+            'k1' => '123',
+            'k2' => 1234567890,
+        ];
+
+        $this->assertEquals(47, \PhPease\Variable\get_array_size($a2));
     }
 }
