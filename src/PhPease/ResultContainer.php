@@ -19,12 +19,17 @@ class ResultContainer
     /**
      * @var bool
      */
-    protected $_success = true;
+    private bool $_success;
 
     /**
      * @var string
      */
-    protected $_message = '';
+    private string $_message;
+
+    /**
+     * @var mixed
+     */
+    private mixed $_result;
 
 
 
@@ -37,6 +42,7 @@ class ResultContainer
     {
         $this->_success = $success;
         $this->_message = $message;
+        $this->_result = null;
         $this->initData($data);
     }
 
@@ -67,7 +73,7 @@ class ResultContainer
     }
 
     /**
-     * @return null|string
+     * @return string
      */
     public function getMessage(): string
     {
@@ -81,6 +87,32 @@ class ResultContainer
     public function setMessage(string $message): ResultContainer
     {
         $this->_message = $message;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasResult(): bool
+    {
+        return $this->_result !== null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->_result;
+    }
+
+    /**
+     * @param mixed $result
+     * @return ResultContainer
+     */
+    public function setResult($result): ResultContainer
+    {
+        $this->_result = $result;
         return $this;
     }
 

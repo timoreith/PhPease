@@ -73,4 +73,17 @@ final class ResultContainerTest extends TestCase
         $this->assertEquals($result->getData('key5'), 'v5');
     }
 
+    public function testResult()
+    {
+        $result = new \PhPease\ResultContainer();
+
+        $this->assertFalse($result->hasResult());
+
+        $result->setResult('my result');
+        $this->assertEquals('my result', $result->getResult());
+
+        $result->setResult(['result 1', 'result 2']);
+        $this->assertEquals(['result 1', 'result 2'], $result->getResult());
+    }
+
 }
