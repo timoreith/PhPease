@@ -29,7 +29,7 @@ class ResultContainer
     /**
      * @var mixed
      */
-    private mixed $_result;
+    private $_result;
 
 
 
