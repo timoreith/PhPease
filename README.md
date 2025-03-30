@@ -24,7 +24,11 @@ $result->setSuccess(true)
        ->setMessage('Operation successful')
        ->setResult(['data' => 'value']);
 
-echo $result->toJson();
+if ($result->isSuccess()) {
+    $result = $result->getResult();
+} else {
+    echo $result->getMessage();
+}
 ```
 
 ### var_to_array
