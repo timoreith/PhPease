@@ -141,11 +141,15 @@ final class VariableTest extends TestCase
         $this->assertEquals(12.00, var_to_float('12'));
         $this->assertEquals(123.00, var_to_float('123'));
         $this->assertEquals(1234.00, var_to_float('1234'));
+        $this->assertEquals(1234.5, var_to_float('1234.5'));
         $this->assertEquals(12345.00, var_to_float('12345'));
+
+        $this->assertEquals('99.00', number_format(var_to_float('99'), 2, '.', ''));
+        $this->assertEquals('99.80', number_format(var_to_float('99.8'), 2, '.', ''));
 
         $this->assertEquals(123.00, var_to_float(123));
         $this->assertEquals(1234.00, var_to_float(1234));
-        $this->assertEquals(12345.00, var_to_float(12345));
+        $this->assertEquals(12345.5, var_to_float(12345.50));
     }
 
     public function testGetArraySize()
