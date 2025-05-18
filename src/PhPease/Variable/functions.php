@@ -124,9 +124,54 @@ function array_keys_exists(array $keys, array $arr): bool
  */
 function var_to_float($var, int $decimals = 2): float
 {
+    if (empty($var) && !is_numeric($var)) {
+        return 0.0;
+    }
+    
     $var = (string)$var;
-    $var = str_replace(',', '.', $var);
-    $var = preg_replace('/[^0-9\.]/', '', $var);
+    
+    // Remove all non-numeric characters except dots and commas
+    $var = preg_replace('/[^0-9\.,]/', '', $var);
+    
+    // Check for thousand separator pattern (e.g., 1,000,000)
+    if (preg_match('/^\d{1,3}(,\d{3})+$/', $var)) {
+        // This is a number with thousand separators only
+        return round((float)str_replace(',', '', $var), $decimals);
+    }
+    
+    // Handle different number formats
+    
+    // If there's a dot in the string
+    if (strpos($var, '.') !== false) {
+        // If there are multiple dots, keep only the last one
+        if (substr_count($var, '.') > 1) {
+            $parts = explode('.', $var);
+            $last = array_pop($parts);
+            $var = implode('', $parts) . '.' . $last;
+        }
+        
+        // Remove all commas (assuming they are thousand separators)
+        $var = str_replace(',', '', $var);
+    } 
+    // If there's no dot but there are commas
+    else if (strpos($var, ',') !== false) {
+        // Check for thousand separator pattern (e.g., 1,234)
+        if (preg_match('/\d{1,3}(,\d{3})+$/', $var)) {
+            // This is a number with thousand separators
+            $var = str_replace(',', '', $var);
+        } else {
+            // If there are multiple commas, treat all but the last as thousand separators
+            if (substr_count($var, ',') > 1) {
+                $parts = explode(',', $var);
+                $last = array_pop($parts);
+                $var = implode('', $parts) . '.' . $last;
+            } else {
+                // Single comma is treated as decimal separator
+                $var = str_replace(',', '.', $var);
+            }
+        }
+    }
+    
     return round((float)$var, $decimals);
 }
 

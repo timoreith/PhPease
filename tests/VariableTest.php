@@ -138,18 +138,48 @@ final class VariableTest extends TestCase
 
     public function testVarToFloat()
     {
+        // Basic integer string conversions
         $this->assertEquals(12.00, var_to_float('12'));
         $this->assertEquals(123.00, var_to_float('123'));
         $this->assertEquals(1234.00, var_to_float('1234'));
         $this->assertEquals(1234.5, var_to_float('1234.5'));
         $this->assertEquals(12345.00, var_to_float('12345'));
 
+        // Formatting tests
         $this->assertEquals('99.00', number_format(var_to_float('99'), 2, '.', ''));
         $this->assertEquals('99.80', number_format(var_to_float('99.8'), 2, '.', ''));
 
+        // Numeric type conversions
         $this->assertEquals(123.00, var_to_float(123));
         $this->assertEquals(1234.00, var_to_float(1234));
         $this->assertEquals(12345.5, var_to_float(12345.50));
+        
+        // Test comma as decimal separator
+        $this->assertEquals(1.50, var_to_float('1,5'));
+        $this->assertEquals(1234.56, var_to_float('1234,56'));
+        
+        // Test non-numeric characters removal
+        $this->assertEquals(12.00, var_to_float('12€'));
+        $this->assertEquals(12.00, var_to_float('$12'));
+        $this->assertEquals(12.00, var_to_float('$ 12'));
+        $this->assertEquals(99.99, var_to_float('$99.99'));
+        $this->assertEquals(99.99, var_to_float('$ 99.99'));
+        $this->assertEquals(99.99, var_to_float('99.99€'));
+        $this->assertEquals(1234.56, var_to_float('1,234.56$'));
+        
+        // Test different decimal precision
+        $this->assertEquals(12.346, var_to_float('12.3456', 3));
+        $this->assertEquals(12.3, var_to_float('12.3456', 1));
+        $this->assertEquals(12, var_to_float('12.3456', 0));
+        
+        // Test edge cases
+        $this->assertEquals(0.00, var_to_float(''));
+        $this->assertEquals(0.00, var_to_float('abc'));
+        $this->assertEquals(0.00, var_to_float(null));
+        
+        // Test large numbers
+        $this->assertEquals(1000000.00, var_to_float('1000000'));
+        $this->assertEquals(1000000.00, var_to_float('1,000,000'));
     }
 
     public function testGetArraySize()
