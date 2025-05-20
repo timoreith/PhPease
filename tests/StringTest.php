@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use function PhPease\String\is_utf8_encoded;
+use function PhPease\String\is_possibly_base64;
 use function PhPease\String\random_string;
 use function PhPease\String\str_contains;
 use function PhPease\String\str_ends_with;
@@ -102,5 +103,20 @@ final class StringTest extends TestCase
         $encodedString = utf8_safe_encode($string);
 
         $this->assertTrue(is_utf8_encoded($encodedString));
+    }
+
+    public function testIsPossiblyBase64()
+    {
+        // Valid base64 strings
+        $this->assertTrue(is_possibly_base64('SGVsbG8gV29ybGQ=')); // "Hello World"
+        $this->assertTrue(is_possibly_base64('VGVzdA==')); // "Test"
+        $this->assertTrue(is_possibly_base64('YWJjMTIz')); // "abc123"
+
+        // Invalid base64 strings
+        $this->assertFalse(is_possibly_base64('SGVsbG8gV29ybGQ')); // Length not divisible by 4
+        $this->assertFalse(is_possibly_base64('SGVsbG8@V29ybGQ=')); // Contains invalid character @
+        $this->assertFalse(is_possibly_base64('SGVsbG8=V29ybGQ=')); // Invalid format
+        $this->assertFalse(is_possibly_base64('SGVsbG8===')); // Too many padding characters
+        $this->assertFalse(is_possibly_base64('')); // Empty string
     }
 }
