@@ -214,12 +214,12 @@ function utf8_safe_encode($str) {
 }
 
 /**
- * Checks if a string is possibly base64 encoded.
+ * Checks if a string is valid base64 encoded and contains meaningful content.
  * 
  * @param string $string The string to check
- * @return bool Returns true if the string is possibly base64 encoded, false otherwise
+ * @return bool Returns true if the string is valid base64 encoded and contains meaningful content, false otherwise
  */
-function is_possibly_base64(string $string): bool {
+function is_valid_base64_content(string $string): bool {
     if (strlen($string) % 4 !== 0) {
         return false;
     }
@@ -229,5 +229,20 @@ function is_possibly_base64(string $string): bool {
     }
 
     $decoded = base64_decode($string, true); // true = strict mode
-    return $decoded !== false;
+    if ($decoded === false) {
+        return false;
+    }
+
+    // Check if the decoded string contains unrealistic characters
+    // We consider a string valid if it contains only printable ASCII characters
+    // or common control characters (tab, newline, carriage return)
+    for ($i = 0; $i < strlen($decoded); $i++) {
+        $char = ord($decoded[$i]);
+        // Allow common control characters: tab (9), newline (10), carriage return (13)
+        if (($char < 32 && $char != 9 && $char != 10 && $char != 13) || $char > 126) {
+            return false;
+        }
+    }
+
+    return true;
 }
